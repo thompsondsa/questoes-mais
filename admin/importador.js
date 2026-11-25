@@ -60,6 +60,7 @@ $('addQuestion').addEventListener('click',()=>addQuestion());
 function makeId(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,48);}
 $('exportPack').addEventListener('click',()=>{
   status('exportStatus','Validando pacote...');
+  if(!$('rightsConfirmed').checked){status('exportStatus','Antes de gerar o pacote, confirme que a reprodução integral está autorizada ou possui fundamento válido. Em caso de dúvida, deixe pendente.','error');return;}
   const exam={ano:Number($('year').value),banca:$('board').value.trim(),orgao:$('agency').value.trim(),cargo:$('role').value.trim(),concurso:$('examName').value.trim()};
   const cards=[...$('questions').querySelectorAll('[data-card]')], errors=[];
   if(!Number.isInteger(exam.ano)||exam.ano<1900||exam.ano>2100)errors.push('Informe um ano válido.');
@@ -80,7 +81,7 @@ $('exportPack').addEventListener('click',()=>{
     return q;
   });
   if(errors.length){status('exportStatus',errors.join(' '),'error');return;}
-  const pack={id:makeId(exam.concurso)+'-'+exam.ano,title:exam.concurso+' — '+exam.ano,exam,source:{examFile:$('examPdf').files[0]?.name||'',answerKeyFile:$('keyPdf').files[0]?.name||'',url:$('sourceUrl').value.trim(),answerKeyReference:$('keyReference').value.trim(),reviewNotes:$('reviewNotes').value.trim(),reviewRequired:true},questions};
+  const pack={id:makeId(exam.concurso)+'-'+exam.ano,title:exam.concurso+' — '+exam.ano,exam,source:{examFile:$('examPdf').files[0]?.name||'',answerKeyFile:$('keyPdf').files[0]?.name||'',url:$('sourceUrl').value.trim(),answerKeyReference:$('keyReference').value.trim(),reviewNotes:$('reviewNotes').value.trim(),reviewRequired:true,reproductionPermissionConfirmed:true},questions};
   const blob=new Blob([JSON.stringify(pack,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
   a.href=url;a.download=pack.id+'.json';a.click();URL.revokeObjectURL(url);
   status('exportStatus','Pacote JSON gerado. Antes de publicar, confira o gabarito definitivo e a permissão de reprodução das questões.','ok');
