@@ -66,11 +66,14 @@ $('exportPack').addEventListener('click',()=>{
   for(const [k,v] of Object.entries({banca:100,orgao:200,cargo:200,concurso:200}))if(!exam[k]||exam[k].length>v)errors.push('Confira o campo '+k+'.');
   if(!cards.length)errors.push('Adicione pelo menos uma questão.');
   const questions=cards.map((card,i)=>{
-    const alts=[...card.querySelectorAll('.alt')].map(x=>x.value.trim());
+    const rawAlts=[...card.querySelectorAll('.alt')].map(x=>x.value.trim());
+    const last=rawAlts.reduce((found,value,index)=>value?index:found,-1);
+    const alts=rawAlts.slice(0,last+1);
     const ans=card.querySelector('.ans').value;
-    const q={id:'Q'+String(i+1).padStart(6,'0'),disc:card.querySelector('.disc').value,stem:card.querySelector('.stem').value.trim(),alts,ans:ans===''?-1:Number(ans),com:card.querySelector('.com').value.trim(),sourcePage:card.querySelector('.page').value?Number(card.querySelector('.page').value):null};
+    const packPrefix=makeId(exam.concurso).slice(0,40)||'prova';
+    const q={id:packPrefix+'-'+String(i+1).padStart(6,'0'),disc:card.querySelector('.disc').value,stem:card.querySelector('.stem').value.trim(),alts,ans:ans===''?-1:Number(ans),com:card.querySelector('.com').value.trim(),sourcePage:card.querySelector('.page').value?Number(card.querySelector('.page').value):null};
     if(!q.stem)errors.push('Questão '+(i+1)+': falta o enunciado.');
-    if(alts.filter(Boolean).length<2||alts.some((a,j)=>j<5&& !a && j<Math.max(...alts.map((x,k)=>x? k+1:0))))errors.push('Questão '+(i+1)+': confira as alternativas e sua ordem.');
+    if(alts.length<2||alts.length>5||alts.some(a=>!a))errors.push('Questão '+(i+1)+': informe de 2 a 5 alternativas, sem espaços vazios entre elas.');
     if(alts.some(a=>a.length>2000))errors.push('Questão '+(i+1)+': alternativa acima de 2.000 caracteres.');
     if(q.ans<0||q.ans>4||!alts[q.ans])errors.push('Questão '+(i+1)+': gabarito não confirmado.');
     if(!q.com)errors.push('Questão '+(i+1)+': falta explicação/comentário revisado.');
