@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3b4558">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>Questões+</title>
+<link rel="stylesheet" href="css/styles.css">
+</head><body>
+<div id="app">
+<header>
+<button class="ib back" id="btn-back" aria-label="Voltar"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4l-8 8 8 8"/></svg></button>
+<div><h1 id="code"></h1><p id="disc"></p></div>
+<button class="ib" id="btn-filter" aria-label="Filtro"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"><path d="M3 4h18l-7 8.5V20l-4-2v-5.5z"/></svg></button>
+</header>
+<div class="row2">
+<div class="num" id="num"></div><div class="tot" id="tot"></div>
+<button class="ib" id="btn-info" aria-label="Informações"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M12 4L1.5 9.5 12 15l10.5-5.5z"/><path d="M6 12.2v4.3c0 1.2 2.7 2.5 6 2.5s6-1.3 6-2.5v-4.3"/><path d="M22.5 9.5v5.5"/></svg></button>
+<button class="ib" id="btn-comments" aria-label="Comentários"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"><path d="M12 4C7 4 3 7 3 11c0 2 1 3.7 2.7 5L5 20l4-1.7c1 .3 2 .4 3 .4 5 0 9-3 9-7s-4-7-9-7z"/></svg></button>
+<button class="ib rec" id="btn-rec"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 7v10M7 12h10"/></svg>Recursos</button>
+</div>
+<div class="meta" id="meta"></div>
+<div class="stem" id="stem"></div>
+<div class="alts" id="alts"></div>
+<div class="hint">Toque para selecionar · deslize para riscar ou desfazer</div>
+<button class="go" id="go">Resolver</button>
+<div id="fb"></div>
+</div>
+<nav>
+<button id="prev"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4l-8 8 8 8"/></svg>Anterior</button>
+<button class="mid" id="btn-goto">Ir para questão</button>
+<button id="next">Próximo<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4l8 8-8 8"/></svg></button>
+</nav>
+<div class="ov" id="ov"><div class="sheet" id="sheet"></div></div>
+<noscript>Este aplicativo precisa de JavaScript.</noscript>
+<script type="module" src="js/main.js"></script>
+</body></html>
